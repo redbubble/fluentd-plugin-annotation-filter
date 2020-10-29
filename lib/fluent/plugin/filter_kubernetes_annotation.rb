@@ -14,16 +14,16 @@ module Fluent
 
       config_param :pass_through_events_without_kubernetes_tags, :bool, default: false
 
-      config_section :annotation_contains_container_name, param_name: :contains_sections, multi: true do
+      config_section :contains_container_name, param_name: :contains_sections, multi: true do
         desc "The name of the Kuberntes annotation that must contain the value in the value field"
-        config_param :containing_field, :string
+        config_param :annotation, :string
       end
 
       def configure(conf)
         super
 
         @pass_through_events_without_kubernetes_tags = conf["pass_through_events_without_kubernetes_tags"]
-        @containing_annotations = @contains_sections.map(&:containing_field)
+        @containing_annotations = @contains_sections.map(&:annotation)
       end
 
       def filter(_, _, record)
