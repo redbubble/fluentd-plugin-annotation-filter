@@ -6,7 +6,7 @@ module Fluent
     class KubernetesAnnotationFilter < Filter
       Fluent::Plugin.register_filter("kubernetes_annotation", self)
 
-      attr_reader :pass_through_events_without_kubernetes_tags, :containing_annotations
+      attr_reader :containing_annotations
 
       def initialize
         super
@@ -22,18 +22,17 @@ module Fluent
       def configure(conf)
         super
 
-        @pass_through_events_without_kubernetes_tags = conf["pass_through_events_without_kubernetes_tags"]
         @containing_annotations = @contains_sections.map(&:annotation)
       end
 
       def filter(_, _, record)
         begin
-          if (record.has_key?("kubernetes") && record["kubernetes"].has_key?("annotations"))
+          if(record.has_key?("kubernetes") && record["kubernetes"].has_key?("annotations"))
             unless annotations_contain_container_name?(record)
               return nil
             end
-          elsif @pass_through_events_without_kubernetes_tags
-            return record
+          elsif !@pass_through_events_without_kubernetes_tags
+            return nil
           end
 
         rescue => e
@@ -47,13 +46,16 @@ module Fluent
       private
 
       def annotations_contain_container_name?(record)
+        return false if containing_annotations.size == 0
+
         container_name = record['kubernetes']['container_name']
 
-        @containing_annotations.all? { |annotation|
-            content = record["kubernetes"]["annotations"][annotation]
-            next false unless content
+        containing_annotations.all? { |annotation|
+          content = record["kubernetes"]["annotations"][annotation]
 
+          if(content)
             JSON.parse(content)&.include?(container_name)
+          end
         }
       end
     end
