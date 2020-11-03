@@ -31,7 +31,7 @@ module Fluent
             unless annotations_contain_container_name?(record)
               return nil
             end
-          elsif !@pass_through_events_without_kubernetes_tags
+          elsif(!@pass_through_events_without_kubernetes_tags)
             return nil
           end
 
