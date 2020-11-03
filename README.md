@@ -17,7 +17,8 @@ It can be a bit of a challenge to get fluentd running locally for "poke-it-and-s
 1. Put your test lines into the file
 1. Watch the output
 
-This is not a particularly nice way to develop anything, but it does _work_.
+This is not a particularly nice way to develop anything, but it does _work_. You'll then need to copy the modified
+source code _back_ into this repository.
 
 ### Tests
 
