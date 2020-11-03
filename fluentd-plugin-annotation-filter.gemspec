@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |gem|
   gem.name          = "fluentd-plugin-annotation-filter"
-  gem.version       = "0.1.0"
+  gem.version       = "1.0.0"
   gem.authors       = ["Delivery Engineering"]
   gem.email         = ["delivery-engineers@redbubble.com"]
   gem.description   = %q{Fluentd plugin to filter based on Kubernetes annotations}
@@ -22,5 +22,6 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency "fluentd", '~> 1.3.3', '>= 1.3.3'
 
   gem.add_development_dependency "bundler", "~> 1.3"
-  gem.add_development_dependency "rspec", "~> 3.0"
+  gem.add_development_dependency "rspec", "~> 3.0"     # Like all our other Ruby projects, our tests are in RSpec
+  gem.add_development_dependency "test-unit", "~> 3.3" # TestUnit is, however, used by fluentd's test driver and must be included
 end
