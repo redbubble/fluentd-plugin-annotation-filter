@@ -12,7 +12,7 @@ It can be a bit of a challenge to get fluentd running locally for "poke-it-and-s
 1. Create an `app/plugins` directory
 1. Copy `lib/fluent/plugin/*` from this repository into that directory
 1. Create a fluentd configuration that uses this plugin, taking input from a file in the `/app` directory. An example
-   configuration can be found at [example/fluentd-test.conf].
+   configuration can be found at [example/fluentd-test.conf](example/fluentd-test.conf).
 1. Run the container
 1. Put your test lines into the file
 1. Watch the output
