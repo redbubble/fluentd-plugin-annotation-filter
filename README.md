@@ -2,6 +2,41 @@
 
 Checks whether the container name is included in an annotation on the pod that is the source of a log entry.
 
+## Development
+
+### Running Locally
+
+It can be a bit of a challenge to get fluentd running locally for "poke-it-and-see" style testing. One approach is to:
+
+1. Pull the Redbubble [fluentd container](https://hub.docker.com/repository/docker/redbubble/debian-fluentd)
+1. Create an `app/plugins` directory
+1. Copy `lib/fluent/plugin/*` from this repository into that directory
+1. Create a fluentd configuration that uses this plugin, taking input from a file in the `/app` directory. An example
+   configuration can be found at [example/fluentd-test.conf].
+1. Run the container
+1. Put your test lines into the file
+1. Watch the output
+
+This is not a particularly nice way to develop anything, but it does _work_.
+
+### Tests
+
+You can run tests locally with:
+
+```
+> rspec
+```
+
+Or in docker with:
+
+```
+> make test
+```
+
+The tests are written using Fluent's [Test Driver](https://docs.fluentd.org/plugin-development/plugin-test-code); this
+requires the `test-unit` gem be included (for some helper methods we're not using) in addition to `rspec`, which is
+actually used to run the tests (in accordance with what all the rest of DRE's Ruby code uses).
+
 ## Operations
 
 ### Installation
