@@ -8,5 +8,5 @@ then
 else
 	echo "--- \n:rubygems_api_key: ${GEM_HOST_API_KEY}" > ~/.gem/credentials
 	chmod 600 ~/.gem/credentials
-	timeout -k 10m 00s gem push fluentd-plugin-annotation-filter-${VERSION}.gem
+	timeout -k 10m 00s gem push fluent-plugin-annotation-filter-${VERSION}.gem
 fi

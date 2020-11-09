@@ -20,7 +20,7 @@ build: ## Create the docker image.
 		-v `pwd`:/app \
 		-e VERSION \
 		ruby:2.5 \
-		gem build fluentd-plugin-annotation-filter.gemspec
+		gem build fluent-plugin-annotation-filter.gemspec
 
 test: ## Run the app tests.
 	@echo "--- :fire: Testing :fire:"
