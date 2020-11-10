@@ -2,7 +2,7 @@ require 'fluent/test'
 require 'fluent/test/driver/filter'
 require "fluent/test/helpers"
 
-require_relative "../../../lib/fluent/plugin/filter-kubernetes-annotation"
+require_relative "../../../lib/fluent/plugin/filter_kubernetes_annotation"
 
 RSpec.configure do |c|
   c.include Fluent::Test::Helpers
