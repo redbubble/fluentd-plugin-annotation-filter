@@ -1,6 +1,6 @@
 .PHONY: all help clean push test build
 
-export VERSION = 1.0.1
+export VERSION = 1.0.2
 export AWS_DEFAULT_REGION = us-east-1
 
 define AWS_CLI_CMD
