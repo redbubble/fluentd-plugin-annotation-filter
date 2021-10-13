@@ -19,7 +19,7 @@ Gem::Specification.new do |gem|
 
   gem.required_ruby_version = '>= 2.5.0'
 
-  gem.add_runtime_dependency "fluentd", '~> 1.3.3', '>= 1.3.3'
+  gem.add_runtime_dependency "fluentd", '~> 1.14.1', '>= 1.14.1'
 
   gem.add_development_dependency "bundler", "~> 1.3"
   gem.add_development_dependency "rspec", "~> 3.0"     # Like all our other Ruby projects, our tests are in RSpec
