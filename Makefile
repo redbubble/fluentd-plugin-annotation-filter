@@ -9,7 +9,7 @@ define AWS_CLI_CMD
       -e AWS_DEFAULT_REGION      \
       -e AWS_SECRET_ACCESS_KEY   \
       -e AWS_SESSION_TOKEN       \
-      awscli:master
+      amazon/aws-cli:latest
 endef
 
 build: ## Create the docker image.
@@ -41,7 +41,7 @@ push: build ## Publish the gem
 		-v `pwd`:/app \
 		-e VERSION \
 		-e BUNDLE_PATH=/app/gems \
-		-e GEM_HOST_API_KEY=$$(${AWS_CLI_CMD} secretsmanager get-secret-value --secret-id rubygems_api_key | jq '.SecretString | fromjson | .rubygems_api_key') \
+		-e GEM_HOST_API_KEY=$$(${AWS_CLI_CMD} secretsmanager get-secret-value --secret-id rubygems_api_key --output json | jq -r '.SecretString | fromjson | .rubygems_api_key') \
 		-it \
 		ruby:3.1 \
 		script/push-gem.sh
