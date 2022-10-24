@@ -1,6 +1,6 @@
 .PHONY: all help clean push test build
 
-export VERSION = 1.0.2
+export VERSION = 1.0.3
 export AWS_DEFAULT_REGION = us-east-1
 
 define AWS_CLI_CMD
@@ -9,7 +9,7 @@ define AWS_CLI_CMD
       -e AWS_DEFAULT_REGION      \
       -e AWS_SECRET_ACCESS_KEY   \
       -e AWS_SESSION_TOKEN       \
-      redbubble/debian-awscli:master
+      awscli:master
 endef
 
 build: ## Create the docker image.
@@ -19,7 +19,7 @@ build: ## Create the docker image.
 		--workdir=/app \
 		-v `pwd`:/app \
 		-e VERSION \
-		ruby:2.5 \
+		ruby:3.1 \
 		gem build fluent-plugin-annotation-filter.gemspec
 
 test: ## Run the app tests.
@@ -30,7 +30,7 @@ test: ## Run the app tests.
 		-v `pwd`:/app \
 		-e VERSION \
 		-e BUNDLE_PATH=/app/gems \
-		ruby:2.5 \
+		ruby:3.1 \
 		script/docker-rspec.sh
 
 push: build ## Publish the gem
@@ -41,9 +41,9 @@ push: build ## Publish the gem
 		-v `pwd`:/app \
 		-e VERSION \
 		-e BUNDLE_PATH=/app/gems \
-		-e GEM_HOST_API_KEY=$$(${AWS_CLI_CMD} aws secretsmanager get-secret-value --secret-id rubygems_api_key | jq '.SecretString | fromjson | .rubygems_api_key') \
+		-e GEM_HOST_API_KEY=$$(${AWS_CLI_CMD} secretsmanager get-secret-value --secret-id rubygems_api_key | jq '.SecretString | fromjson | .rubygems_api_key') \
 		-it \
-		ruby:2.5 \
+		ruby:3.1 \
 		script/push-gem.sh
 
 
